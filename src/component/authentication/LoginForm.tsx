@@ -2,7 +2,7 @@
 import React from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-// import { useLoginMutation } from '../../redux/auth.api';
+import { useLoginMutation } from '../../redux/auth.api';
 import { toast} from 'sonner';
 
 // import { useForm, SubmitHandler } from 'react-hook-form';
@@ -14,7 +14,7 @@ import { toast} from 'sonner';
 const LoginForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>();
   const navigate = useNavigate();
-  // const [login] = useLoginMutation();
+  const [login] = useLoginMutation();
 
 //   // Google Login Success Handler
 //   const responseGoogle = (response: any) => {
@@ -26,39 +26,43 @@ const LoginForm: React.FC = () => {
   const onSubmit: SubmitHandler<FieldValues> = async(data) => {
     console.log(data);
 
-    try {
+    login(data)
+    navigate("/")
+    toast.success('logged In successfully')
 
-      const response = await fetch(`http://localhost:5000/gari-lagbe/v1/auth/login`, {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  credentials: "include",
-  body: JSON.stringify(data), 
+//     try {
+
+//       const response = await fetch(`http://localhost:5000/gari-lagbe/v1/auth/login`, {
+//   method: 'POST',
+//   headers: {
+//     'Content-Type': 'application/json',
+//   },
+//   credentials: "include",
+//   body: JSON.stringify(data), 
    
-});
-if (response.ok) {
-  const data = await response.json();
-  console.log(data); 
-  toast.success("Logged in successfully");
-  navigate("/")
-} else {
-  console.log("Error: ", response.status);
-}
-    } catch (err) {
-      console.error(err);
+// });
+// if (response.ok) {
+//   const data = await response.json();
+//   console.log(data); 
+//   toast.success("Logged in successfully");
+//   navigate("/")
+// } else {
+//   console.log("Error: ", response.status);
+// }
+//     } catch (err) {
+//       console.error(err);
 
-      if(err.data.message === "Password does not match" ){
-        toast.error("invalid credentials")
-      }
+//       if(err.data.message === "Password does not match" ){
+//         toast.error("invalid credentials")
+//       }
 
-      if (err.data.message === "User is not verified") {
-        toast.error("Your account is not verified");
-        navigate("/verify", { state: data.email });
-      }
+//       if (err.data.message === "User is not verified") {
+//         toast.error("Your account is not verified");
+//         navigate("/verify", { state: data.email });
+//       }
 
       
-    }
+//     }
     // Handle login authentication logic here
     // Navigate to the dashboard or any other page on successful login
     // navigate('/dashboard');

@@ -1,7 +1,7 @@
 import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+// import { createRoot } from 'react-dom/client'
 import './index.css'
-
+import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router'
 // import { router } from './routes'
 // import { ThemeProvider } from './provider/theme.provider'
@@ -13,7 +13,7 @@ import { Toaster } from 'sonner'
 // import { store } from './redux/store'
 // import { Toaster } from 'sonner'
 
-createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <Provider store={store}>
 

@@ -16,6 +16,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import Password from "@/components/ui/password";
+import { useRegisterMutation } from "@/redux/auth.api";
 
 const registerSchema = z
   .object({
@@ -42,6 +43,7 @@ export default function RegisterForm({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const navigate = useNavigate();
+  const[register] = useRegisterMutation()
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -53,7 +55,7 @@ export default function RegisterForm({
     },
   });
 
-  const onSubmit = async (data: z.infer<typeof registerSchema>) => {
+  const onSubmit = (data: z.infer<typeof registerSchema>) => {
     const userInfo = {
       name: data.name,
       email: data.email,
@@ -63,27 +65,32 @@ export default function RegisterForm({
 
     console.log(userInfo);
 
-    try {
-      const response = await fetch(
-        `http://localhost:5000/gari-lagbe/v1/user/register`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userInfo),
-        }
-      );
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data);
+    register(userInfo)
+    navigate("/login")
+    toast.success("please login")
+
+
+    // try {
+    //   const response = await fetch(
+    //     `http://localhost:5000/gari-lagbe/v1/user/register`,
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify(userInfo),
+    //     }
+    //   );
+    //   if (response.ok) {
+    //     const data = await response.json();
+    //     console.log(data);
         
-        toast.success(`${data?.data?.user?.name} User created successfully, please login`);
-        navigate("/login");
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    //     toast.success(`${data?.data?.user?.name} User created successfully, please login`);
+    //     navigate("/login");
+    //   }
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   return (
