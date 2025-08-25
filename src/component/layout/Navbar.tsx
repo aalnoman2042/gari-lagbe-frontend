@@ -1,9 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/auth.api";
 import { useAppDispatch } from "@/redux/hook";
-// import { fetchData } from "@/utils/fetchData";
 
-import { useEffect } from "react";
+
 import { Link } from "react-router";
 import { toast } from "sonner";
 
@@ -13,58 +12,10 @@ const Navbar = () => {
   const dispatch = useAppDispatch();
 
   console.log(data);
-  // fetchData('http://localhost:5000/gari-lagbe/v1/user/me', {method: 'GET'})
 
-// const fetchUserInfo = async () => {
-//   try {
-//     // Get the JWT token from the cookies
-//     const token = document.cookie
-//       .split('; ')
-//       .find((row) => row.startsWith('accessToken='))
-//       ?.split('=')[1]; // If token is not HttpOnly
-
-//     if (!token) {
-//       console.log('No token found. Please log in.');
-//       return;
-//     }
-
-//     // Make the GET request to fetch user info
-//     const response = await fetch('http://localhost:5000/gari-lagbe/v1/user/me', {
-//       method: 'GET',
-//       headers: {
-//         'Authorization': `Bearer ${token}`, // Attach token in the Authorization header
-//         'Content-Type': 'application/json',
-//       },
-//       credentials: 'include', // Ensures cookies are sent with the request
-//     });
-
-//     if (response.ok) {
-//       const data = await response.json();
-//       console.log('User Info:', data); // Log the user info
-//       return data; // You can update state or pass the data as needed
-//     } else {
-//       const errorData = await response.json();
-//       console.error('Error fetching user info:', errorData.message);
-//     }
-//   } catch (error) {
-//     console.error('Error:', error);
-//   }
-// };
-
-// const UserProfile = () => {
-//   useEffect(() => {
-//     // Automatically hit the API on component mount
-//     fetchUserInfo();
-//   }, []); // Empty dependency array ensures this only runs once when the component mounts
-
-// }
-
-  
-
-// UserProfile()
 
   const handleLogout = async () => {
-    // fetchData('http://localhost:5000/gari-lagbe/v1/auth/logout', {method: 'POST'})
+    
     await logout(undefined);
     dispatch(authApi.util.resetApiState());
     toast.success("successfully Logged out")

@@ -2,12 +2,9 @@
 import React from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router';
-import { useLoginMutation } from '../../redux/auth.api';
+import { authApi, useLoginMutation } from '../../redux/auth.api';
 import { toast} from 'sonner';
-
-// import { useForm, SubmitHandler } from 'react-hook-form';
-// import { useNavigate } from 'react-router-dom';
-// import { GoogleLogin } from 'react-google-login';
+import { useAppDispatch } from '@/redux/hook';
 
 
 
@@ -15,12 +12,8 @@ const LoginForm: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>();
   const navigate = useNavigate();
   const [login] = useLoginMutation();
+  const dispatch = useAppDispatch();
 
-//   // Google Login Success Handler
-//   const responseGoogle = (response: any) => {
-//     console.log(response);
-//     // You can handle Google login response here and authenticate the user
-//   };
 
   // Form submit handler
   const onSubmit: SubmitHandler<FieldValues> = async(data) => {
@@ -28,6 +21,7 @@ const LoginForm: React.FC = () => {
 
     login(data)
     navigate("/")
+    dispatch(authApi.util.resetApiState());
     toast.success('logged In successfully')
 
 //     try {

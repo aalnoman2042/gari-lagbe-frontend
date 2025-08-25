@@ -67,7 +67,7 @@ export default function RegisterForm({
 
     register(userInfo)
     navigate("/login")
-    toast.success("please login")
+    toast.success(`${userInfo?.name} account created , please login`)
 
 
     // try {
