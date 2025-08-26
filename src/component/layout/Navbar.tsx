@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+
 import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/auth.api";
 import { useAppDispatch } from "@/redux/hook";
 
@@ -15,11 +16,11 @@ const Navbar = () => {
 
 
   const handleLogout = async () => {
-    
-    await logout(undefined);
-    dispatch(authApi.util.resetApiState());
-    toast.success("successfully Logged out")
-  };
+  await logout(undefined);
+  toast.success("Successfully Logged out");
+  dispatch(authApi.util.resetApiState());
+  // localStorage.clear(); // অথবা শুধু auth related key clear করো
+};
 
 
     return (
@@ -33,14 +34,20 @@ const Navbar = () => {
       <ul
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-        <li><a>Item 1</a></li>
-        <li>
-          <a>Parent</a>
-          <ul className="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </li>
+        <li><Link to={'/'}> Home</Link></li>
+     
+
+          <li>
+  {data?.data?.role === "rider" ? (
+    <Link to="/rider-dashboard">Rider Dashboard</Link>
+  ) : data?.data?.role === "driver" ? (
+    <Link to="/driver-dashboard">Driver Dashboard</Link>
+  ) : data?.data?.role === "admin" ? (
+    <Link to="/admin-dashboard">Admin Dashboard</Link>
+  ) : null}
+</li>
+         
+       
         <li><a>Item 3</a></li>
       </ul>
     </div>
@@ -49,15 +56,15 @@ const Navbar = () => {
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
       <li><a>Item 1</a></li>
-      <li>
-        <details>
-          <summary>Parent</summary>
-          <ul className="p-2">
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </details>
-      </li>
+              <li>
+  {data?.data?.role === "rider" ? (
+    <Link to="/rider">Rider Dashboard</Link>
+  ) : data?.data?.role === "driver" ? (
+    <Link to="/driver">Driver Dashboard</Link>
+  ) : data?.data?.role === "admin" ? (
+    <Link to="/admin">Admin Dashboard</Link>
+  ) : null}
+</li>
       <li><a>Item 3</a></li>
     </ul>
   </div>

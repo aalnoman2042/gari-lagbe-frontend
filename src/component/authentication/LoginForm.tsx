@@ -1,126 +1,116 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import React from 'react';
-import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useNavigate } from 'react-router';
-import { authApi, useLoginMutation } from '../../redux/auth.api';
-import { toast} from 'sonner';
-import { useAppDispatch } from '@/redux/hook';
-
+import React from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
+import { useLoginMutation } from "../../redux/auth.api";
+import { toast } from "sonner";
 
 
 const LoginForm: React.FC = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>();
+  const { register, handleSubmit } = useForm<FieldValues>();
   const navigate = useNavigate();
   const [login] = useLoginMutation();
-  const dispatch = useAppDispatch();
-
 
   // Form submit handler
-  const onSubmit: SubmitHandler<FieldValues> = async(data) => {
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     console.log(data);
+    
+    try {
+      const res = await login(data).unwrap();
 
-    login(data)
-    navigate("/")
-    dispatch(authApi.util.resetApiState());
-    toast.success('logged In successfully')
+      if (res.success) {
+        toast.success("Logged in successfully");
+        navigate("/");
+      }
+    } catch (err: any) {
+      // console.error(err?.data?.message);
 
-//     try {
-
-//       const response = await fetch(`http://localhost:5000/gari-lagbe/v1/auth/login`, {
-//   method: 'POST',
-//   headers: {
-//     'Content-Type': 'application/json',
-//   },
-//   credentials: "include",
-//   body: JSON.stringify(data), 
-   
-// });
-// if (response.ok) {
-//   const data = await response.json();
-//   console.log(data); 
-//   toast.success("Logged in successfully");
-//   navigate("/")
-// } else {
-//   console.log("Error: ", response.status);
-// }
-//     } catch (err) {
-//       console.error(err);
-
-//       if(err.data.message === "Password does not match" ){
-//         toast.error("invalid credentials")
-//       }
-
-//       if (err.data.message === "User is not verified") {
-//         toast.error("Your account is not verified");
-//         navigate("/verify", { state: data.email });
-//       }
-
-      
-//     }
-    // Handle login authentication logic here
-    // Navigate to the dashboard or any other page on successful login
-    // navigate('/dashboard');
+        toast.error(err?.data?.message)
+    }
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 px-4">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="bg-white p-8 rounded-lg shadow-lg w-96"
+        className="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md"
       >
-        <h2 className="text-2xl mb-4 text-center">Login</h2>
+        <h2 className="text-3xl font-bold mb-6 text-center text-[#175C4F]">
+          Login
+        </h2>
 
         {/* Email Field */}
         <div className="mb-4">
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Email
+          </label>
           <input
             id="email"
             type="email"
-            className="w-full p-2 mt-2 border border-gray-300 rounded-md"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#175C4F]"
             placeholder="Enter your email"
-            {...register('email', { required: 'Email is required' })}
+            {...register("email", { required: "Email is required" })}
           />
-          
         </div>
 
         {/* Password Field */}
         <div className="mb-4">
-          <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Password
+          </label>
           <input
             id="password"
             type="password"
-            className="w-full p-2 mt-2 border border-gray-300 rounded-md"
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#175C4F]"
             placeholder="Enter your password"
-            {...register('password', { required: 'Password is required' })}
+            {...register("password", { required: "Password is required" })}
           />
-          
+        </div>
+
+        {/* Role Field */}
+        <div className="mb-6">
+          <label
+            htmlFor="role"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            Role
+          </label>
+          <select
+            id="role"
+            {...register("role", { required: "Role is required" })}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#175C4F]"
+          >
+            <option value="">Select Role</option>
+            <option value="admin">Admin</option>
+            <option value="rider">Rider</option>
+            <option value="driver">Driver</option>
+          </select>
         </div>
 
         {/* Login Button */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          className="w-full bg-[#175C4F] text-white py-3 rounded-lg font-semibold hover:bg-black transition-colors duration-300"
         >
           Login
         </button>
 
-        {/* Google Login */}
-        {/* <div className="mt-4 text-center">
-          <GoogleLogin
-            clientId="YOUR_GOOGLE_CLIENT_ID"
-            buttonText="Login with Google"
-            onSuccess={responseGoogle}
-            onFailure={responseGoogle}
-            cookiePolicy="single_host_origin"
-            className="w-full p-2 bg-blue-500 text-white rounded-md"
-          />
-        </div> */}
-
         {/* Register Route Link */}
-        <div className="mt-4 text-center">
-          <p>
-            Don't have an account?{' '}
-            <a href="/register" className="text-blue-500 hover:underline">Register</a>
+        <div className="mt-6 text-center">
+          <p className="text-gray-600">
+            Don&apos;t have an account?{" "}
+            <a
+              href="/register"
+              className="text-[#175C4F] font-semibold hover:underline"
+            >
+              Register
+            </a>
           </p>
         </div>
       </form>

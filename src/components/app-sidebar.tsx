@@ -37,12 +37,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   navMain: getSideBarItems(userData?.data?.role)
 }
   return (
-    <Sidebar {...props}>
-      <SidebarHeader>
+    <Sidebar  {...props}>
+      <SidebarHeader className="bg-[#175C4F]">
         {/* <Logo></Logo> */}
-        <h1>side bar</h1>
+        <h1><Link to={"/"}>Gari-Lagbe</Link></h1>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="bg-[#175C4F]">
         {/* We create a SidebarGroup for each parent. */}
         {data.navMain.map((item) => (
           <SidebarGroup key={item.title}>

@@ -26,3 +26,7 @@ export default tseslint.config(
     },
   },
 )
+
+
+eslint.config.js
+

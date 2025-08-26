@@ -1,6 +1,9 @@
 import AllUser from "@/pages/Admin/AllUser";
-import Analytics from "@/pages/Admin/Analytics";
+// import Analytics from "@/pages/Admin/Analytics";
+import { lazy } from "react";
 
+
+const Analytics = lazy(() => import("@/pages/Admin/Analytics"));
 
 
 
