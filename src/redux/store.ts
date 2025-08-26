@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { baseApi } from './baseApi'
 import { setupListeners } from '@reduxjs/toolkit/query'
+import onlineStatusReducer from "./onlineStatusSlice"
 
 export const store = configureStore({
   reducer: {
-    [baseApi.reducerPath]: baseApi.reducer
-  
+
+    onlineStatus: onlineStatusReducer,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(baseApi.middleware)

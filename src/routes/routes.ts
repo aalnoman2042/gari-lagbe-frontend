@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router";
 import App from "../App";
-import About from "../pages/About";
+
 import Login from "../pages/Login";
 import Register from "../pages/Register";
 import DashboardLayout from "@/component/layout/DashboardLayout";
@@ -16,6 +16,7 @@ import { TRole } from "@/types/sideBarTypes";
 import { withAuth } from "@/utils/withAuth";
 import { role } from "@/constants/role";
 import unauthorized from "@/pages/unauthorized";
+import ContactForm from "@/pages/ContactForm";
 
 export const router = createBrowserRouter([
        {
@@ -23,10 +24,7 @@ export const router = createBrowserRouter([
         Component: App,
         path: "/",
         children:[
-            {
-                Component: About,
-                path: "about"
-            }
+        
         ]
     },
         {
@@ -44,6 +42,10 @@ export const router = createBrowserRouter([
                 path: "/unauthorized"
 
     },
+      {
+            Component: ContactForm,
+            path: "/contact"
+          },
         {
      
         Component: withAuth(DashboardLayout, role.admin as TRole),

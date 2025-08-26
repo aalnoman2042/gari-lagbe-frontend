@@ -39,11 +39,11 @@ const Navbar = () => {
 
           <li>
   {data?.data?.role === "rider" ? (
-    <Link to="/rider-dashboard">Rider Dashboard</Link>
+    <Link to="/rider">Rider Dashboard</Link>
   ) : data?.data?.role === "driver" ? (
-    <Link to="/driver-dashboard">Driver Dashboard</Link>
+    <Link to="/driver">Driver Dashboard</Link>
   ) : data?.data?.role === "admin" ? (
-    <Link to="/admin-dashboard">Admin Dashboard</Link>
+    <Link to="/admin">Admin Dashboard</Link>
   ) : null}
 </li>
          

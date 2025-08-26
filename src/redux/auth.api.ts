@@ -57,6 +57,28 @@ export const authApi = baseApi.injectEndpoints({
       }),
       // invalidatesTags: ["USER"],
     }),
+    driverOnlineStatus: builder.mutation({
+      query: (id) => ({
+        url: `/driver/availability/${id}`,
+        method: "PATCH",
+      }),
+      // invalidatesTags: ["USER"],
+    }),
+    getRequestedRide: builder.query({
+      query: () => ({
+        url: `/driver/requestedRide`,
+        method: "GET",
+      }),
+      // invalidatesTags: ["USER"],
+    }),
+    updateRideStatus: builder.mutation({
+      query: ({rideId, status}) => ({
+        url: `/driver/ride-status/${rideId}`,
+        method: "PATCH",
+        body: {status: status}
+      }),
+       invalidatesTags: ["USER"],
+    }),
 
     // rider section 
      rideRequest: builder.mutation({
@@ -82,6 +104,57 @@ export const authApi = baseApi.injectEndpoints({
       // invalidatesTags: ["USER"],
     }),
 
+    // Admin section 
+      allRiders: builder.query({
+      query: () => ({
+        url: `/admin/riders`,
+        method: "GET",
+      }),
+      // invalidatesTags: ["USER"],
+    }),
+      blockUser: builder.mutation({
+      query: (id) => ({
+        url: `/admin/users/${id}/block`,
+        method: "PATCH",
+      }),
+      // invalidatesTags: ["USER"],
+    }),
+      unBlockUser: builder.mutation({
+      query: (id) => ({
+        url: `/admin/users/${id}/unblock`,
+        method: "PATCH",
+      }),
+      // invalidatesTags: ["USER"],
+    }),
+   
+      approveDriver: builder.mutation({
+      query: (id) => ({
+        url: `/admin/drivers/${id}/approve`,
+        method: "PATCH",
+      }),
+      // invalidatesTags: ["USER"],
+    }),
+      suspendDriver: builder.mutation({
+      query: (id) => ({
+        url: `/admin/drivers/${id}/suspend`,
+        method: "PATCH",
+      }),
+      // invalidatesTags: ["USER"],
+    }),
+      allDrivers: builder.query({
+      query: () => ({
+        url: `/admin/drivers`,
+        method: "GET",
+      }),
+      // invalidatesTags: ["USER"],
+    }),
+      allRides: builder.query({
+      query: () => ({
+        url: `/admin/rides`,
+        method: "GET",
+      }),
+      // invalidatesTags: ["USER"],
+    }),
    
   }),
 });
@@ -101,5 +174,19 @@ useDriverHIstoryQuery,
 
 useRiderHistoryQuery,
 useRideRequestMutation,
-useCancelRideMutation
+useCancelRideMutation,
+
+
+useAllRidersQuery,
+useBlockUserMutation,
+useUnBlockUserMutation,
+useAllDriversQuery,
+useApproveDriverMutation,
+useSuspendDriverMutation,
+useAllRidesQuery,
+useDriverOnlineStatusMutation,
+useUpdateRideStatusMutation,
+useGetRequestedRideQuery
+
+
 } = authApi;

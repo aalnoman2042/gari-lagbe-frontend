@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
+  
   FormField,
   FormItem,
   FormLabel,
@@ -20,21 +21,14 @@ import { useRegisterMutation } from "@/redux/auth.api";
 
 const registerSchema = z
   .object({
-    name: z
-      .string()
-      .min(3, {
-        error: "Name is too short",
-      })
-      .max(50),
+    name: z.string().min(3, { error: "Name is too short" }).max(50),
     email: z.email(),
     password: z.string().min(8, { error: "Password is too short" }),
-    confirmPassword: z
-      .string()
-      .min(8, { error: "Confirm Password is too short" }),
-    role: z.enum(["rider", "driver"]), // Added the role field (rider/driver)
+    confirmPassword: z.string().min(8, { error: "Confirm Password is too short" }),
+    role: z.enum(["rider", "driver"]),
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Password do not match",
+    message: "Passwords do not match",
     path: ["confirmPassword"],
   });
 
@@ -43,7 +37,8 @@ export default function RegisterForm({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const navigate = useNavigate();
-  const[register] = useRegisterMutation()
+  const [register] = useRegisterMutation();
+
   const form = useForm<z.infer<typeof registerSchema>>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -51,7 +46,7 @@ export default function RegisterForm({
       email: "",
       password: "",
       confirmPassword: "",
-      role: "rider", // Default role
+      role: "rider",
     },
   });
 
@@ -60,187 +55,167 @@ export default function RegisterForm({
       name: data.name,
       email: data.email,
       password: data.password,
-      role: data.role, // Add the role to the user info
+      role: data.role,
     };
 
-    console.log(userInfo);
-
-    register(userInfo)
-    navigate("/login")
-    toast.success(`${userInfo?.name} account created , please login`)
-
-
-    // try {
-    //   const response = await fetch(
-    //     `http://localhost:5000/gari-lagbe/v1/user/register`,
-    //     {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(userInfo),
-    //     }
-    //   );
-    //   if (response.ok) {
-    //     const data = await response.json();
-    //     console.log(data);
-        
-    //     toast.success(`${data?.data?.user?.name} User created successfully, please login`);
-    //     navigate("/login");
-    //   }
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    register(userInfo);
+    navigate("/login");
+    toast.success(`${userInfo?.name} account created, please login`);
   };
 
   return (
-    <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Register your account</h1>
-        <p className="text-sm text-muted-foreground">
-          Enter your details to create an account
+    <div
+      className={cn(
+        "flex flex-col gap-8 p-6 md:p-10 bg-white shadow-lg rounded-2xl max-w-2xl mx-auto",
+        className
+      )}
+      {...props}
+    >
+      {/* Header */}
+      <div className="flex flex-col items-center gap-3 text-center">
+        <h1 className="text-3xl md:text-4xl font-bold text-[#175C4F]">
+          Register Your Account
+        </h1>
+        <p className="text-sm md:text-base text-gray-500">
+          Enter your details to create a new account
         </p>
       </div>
 
-      <div className="grid gap-6">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="John Doe" {...field} />
-                  </FormControl>
-                  <FormDescription className="sr-only">
-                    This is your public display name.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      placeholder="john.doe@company.com"
-                      type="email"
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormDescription className="sr-only">
-                    This is your public display name.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Password {...field} />
-                  </FormControl>
-                  <FormDescription className="sr-only">
-                    This is your public display name.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirm Password</FormLabel>
-                  <FormControl>
-                    <Password {...field} />
-                  </FormControl>
-                  <FormDescription className="sr-only">
-                    This is your public display name.
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Role Selection */}
-            <FormField
-              control={form.control}
-              name="role"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Role</FormLabel>
-                  <FormControl>
-                    <div className="flex items-center gap-4">
-                      <div>
-                        <label>
-                          <input
-                            type="radio"
-                            {...field}
-                            value="rider"
-                            checked={field.value === "rider"}
-                            className="mr-2"
-                          />
-                          Rider
-                        </label>
-                      </div>
-                      <div>
-                        <label>
-                          <input
-                            type="radio"
-                            {...field}
-                            value="driver"
-                            checked={field.value === "driver"}
-                            className="mr-2"
-                          />
-                          Driver
-                        </label>
-                      </div>
-                    </div>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            <Button type="submit" className="w-full">
-              Submit
-            </Button>
-          </form>
-        </Form>
-
-        <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-          <span className="relative z-10 bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full cursor-pointer"
+      {/* Form */}
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="grid gap-4 md:gap-6"
         >
-          Login with Google
-        </Button>
+          <FormField
+            control={form.control}
+            name="name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-[#175C4F] font-medium">Name</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="John Doe"
+                    {...field}
+                    className="border-[#175C4F] focus:ring-[#175C4F] focus:border-[#175C4F]"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-[#175C4F] font-medium">Email</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder="john.doe@example.com"
+                    type="email"
+                    {...field}
+                    className="border-[#175C4F] focus:ring-[#175C4F] focus:border-[#175C4F]"
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-[#175C4F] font-medium">Password</FormLabel>
+                <FormControl>
+                  <Password {...field} className="border-[#175C4F]" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="confirmPassword"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-[#175C4F] font-medium">
+                  Confirm Password
+                </FormLabel>
+                <FormControl>
+                  <Password {...field} className="border-[#175C4F]" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          {/* Role Selection */}
+          <FormField
+            control={form.control}
+            name="role"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-[#175C4F] font-medium">Role</FormLabel>
+                <FormControl>
+                  <div className="flex items-center gap-6 mt-1">
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        {...field}
+                        value="rider"
+                        checked={field.value === "rider"}
+                        className="accent-[#175C4F]"
+                      />
+                      Rider
+                    </label>
+                    <label className="flex items-center gap-2 cursor-pointer">
+                      <input
+                        type="radio"
+                        {...field}
+                        value="driver"
+                        checked={field.value === "driver"}
+                        className="accent-[#175C4F]"
+                      />
+                      Driver
+                    </label>
+                  </div>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <Button
+            type="submit"
+            className="w-full py-3 mt-2 bg-[#175C4F] hover:bg-black text-white font-semibold rounded-lg transition-all duration-300"
+          >
+            Register
+          </Button>
+        </form>
+      </Form>
+
+      {/* Or continue with */}
+      <div className="relative text-center text-sm mt-4">
+        <span className="relative z-10 bg-white px-2 text-gray-500">Or continue with</span>
       </div>
 
-      <div className="text-center text-sm">
+      <Button
+        type="button"
+        variant="outline"
+        className="w-full py-3 mt-2 border-[#175C4F] text-[#175C4F] hover:bg-[#175C4F] hover:text-white transition-all duration-300"
+      >
+        Login with Google
+      </Button>
+
+      {/* Login Link */}
+      <p className="text-center text-sm mt-4 text-gray-500">
         Already have an account?{" "}
-        <Link to="/login" className="underline underline-offset-4">
+        <Link to="/login" className="underline underline-offset-2 text-[#175C4F] hover:text-black">
           Login
         </Link>
-      </div>
+      </p>
     </div>
   );
 }
