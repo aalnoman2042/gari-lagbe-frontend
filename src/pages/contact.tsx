@@ -4,6 +4,7 @@ import contactImage from "../assets/contact.png";
 const Contact = () => {
   return (
     <div className="w-[80%] mx-auto my-10">
+   
       {/* Contact Heading */}
       <div className="text-center mb-8">
         <h2 className="text-4xl font-bold text-[#175C4F] mb-4">Contact With Us</h2>

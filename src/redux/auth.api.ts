@@ -108,6 +108,7 @@ export const authApi = baseApi.injectEndpoints({
       query: () => ({
         url: "/ride/ongoingRides",
         method: "GET",
+        credentials: "include", 
       }),
       // providesTags: ["RiderOngoingRides"],
     }),
@@ -159,6 +160,13 @@ export const authApi = baseApi.injectEndpoints({
       allRides: builder.query({
       query: () => ({
         url: `/admin/rides`,
+        method: "GET",
+      }),
+      // invalidatesTags: ["USER"],
+    }),
+      allUsers: builder.query({
+      query: () => ({
+        url: `/admin/users`,
         method: "GET",
       }),
       // invalidatesTags: ["USER"],
@@ -223,6 +231,7 @@ useAllRidesQuery,
 useDriverOnlineStatusMutation,
 useUpdateRideStatusMutation,
 useGetRequestedRideQuery,
+useAllUsersQuery,
 
 
 

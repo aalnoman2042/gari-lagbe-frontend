@@ -9,60 +9,55 @@ import {
   useUpdateRideStatusMutation,
 } from "@/redux/auth.api";
 
+import { Link } from "react-router";
+
 const statusOrder = ["accepted", "picked_up", "in_transit", "completed"];
 
 const OngoingRide = () => {
-  // Logged-in user info
   const { data: userData } = useUserInfoQuery(undefined);
-  const userId = userData?.data?._id;
   const role = userData?.data?.role;
+  const userId = userData?.data?._id;
 
-  // Fetch rides based on role
-  const {
-    data: driverData,
-    isLoading: isDriverLoading,
-    isError: isDriverError,
-    refetch: refetchDriver,
-  } = useDriverHIstoryQuery(userId!, { skip: role !== "driver" });
+  let ridesData;
+  let isLoading = false;
+  let isError = false;
+  let refetch: (() => void) | undefined;
 
-  const {
-    data: riderData,
-    isLoading: isRiderLoading,
-    isError: isRiderError,
-    refetch: refetchRider,
-  } = useGetRiderOngoingRidesQuery(undefined, { skip: role !== "rider" });
+  if (role === "driver") {
+    const driverQuery = useDriverHIstoryQuery(userId!, { skip: false });
+    ridesData = driverQuery.data?.data;
+    isLoading = driverQuery.isLoading;
+    isError = driverQuery.isError;
+    refetch = driverQuery.refetch;
+  } else if (role === "rider") {
+    const riderQuery = useGetRiderOngoingRidesQuery(undefined, { skip: false });
+    ridesData = riderQuery.data?.data;
+    isLoading = riderQuery.isLoading;
+    isError = riderQuery.isError;
+    refetch = riderQuery.refetch;
+  }
 
-  console.log(riderData);
-  
   const [updateRideStatus] = useUpdateRideStatusMutation();
   const [loadingRide, setLoadingRide] = useState<string | null>(null);
 
-  const isLoading = role === "driver" ? isDriverLoading : isRiderLoading;
-  const isError = role === "driver" ? isDriverError : isRiderError;
-  const rides = role === "driver" ? driverData?.data : riderData?.data;
-
   if (isLoading) return <span className="loading loading-spinner loading-max-xl"></span>;
-  if (isError)
-    console.log(isError);
-    
-    return <div className="text-center mt-10 text-red-500">Error loading rides</div>;
+  if (isError) return <div className="text-center mt-10 text-red-500">Error loading rides</div>;
 
-  // Only ongoing rides (exclude completed or cancelled)
-  const ongoingRides = rides?.filter(
+  const ongoingRides = ridesData?.filter(
     (ride: any) => ride.status !== "completed" && ride.status !== "cancelled"
   );
 
   const handleStatusUpdate = async (rideId: string, currentStatus: string) => {
-    const nextStatusIndex = statusOrder.indexOf(currentStatus) + 1;
-    if (nextStatusIndex >= statusOrder.length) return;
-    const nextStatus = statusOrder[nextStatusIndex];
+    const nextIndex = statusOrder.indexOf(currentStatus) + 1;
+    if (nextIndex >= statusOrder.length) return;
+    const nextStatus = statusOrder[nextIndex];
 
     try {
       setLoadingRide(rideId);
       await updateRideStatus({ rideId, status: nextStatus }).unwrap();
       toast.success(`Ride status updated to ${nextStatus.replace("_", " ")}`);
       setLoadingRide(null);
-      role === "driver" ? refetchDriver() : refetchRider();
+      if (refetch) refetch();
     } catch (err: any) {
       console.error(err);
       toast.error(err?.data?.message || "Failed to update status");
@@ -72,7 +67,6 @@ const OngoingRide = () => {
 
   return (
     <div className="flex flex-col items-center py-6 gap-6">
-      {/* SOS Button visible for active rides */}
       <SOSButton isActiveRide={ongoingRides && ongoingRides.length > 0} />
 
       {ongoingRides && ongoingRides.length > 0 ? (
@@ -99,9 +93,9 @@ const OngoingRide = () => {
                 </p>
               </div>
 
-              {/* Role-based buttons */}
               <div className="flex mt-2 justify-center flex-wrap gap-1">
-                {role === "driver" ? (
+                {/* Driver buttons */}
+                {role === "driver" &&
                   statusOrder.map((status, index) => {
                     const isCurrent = index === activeStatusIndex;
                     const isNext = index === activeStatusIndex + 1;
@@ -123,12 +117,21 @@ const OngoingRide = () => {
                         {status.replace("_", " ").toUpperCase()}
                       </button>
                     );
-                  })
-                ) : role === "rider" ? (
+                  })}
+
+                {/* Rider view: only show current status */}
+                {role === "rider" && (
+                  <span className="px-5 py-2 text-sm font-semibold border border-gray-300 rounded-full bg-gray-200 text-gray-700">
+                    {ride.status.replace("_", " ").toUpperCase()}
+                  </span>
+                )}
+
+                {/* Pay button for rider */}
+                {role === "rider" && (
                   <button className="px-6 py-2 bg-[#175C4F] text-white rounded-full shadow-md hover:bg-black transition">
-                    Pay
+                    <Link to="/rider/ride-ongoing/payment">pay</Link>
                   </button>
-                ) : null}
+                )}
               </div>
             </div>
           );

@@ -3,7 +3,8 @@
 // import RiderHistory from "@/pages/Rider/RiderHistory";
 // import updateProfile from "@/pages/UpdateProfile";
 import OngoingRide from "@/pages/Driver/OngoingRide";
-import { lazy, Suspense } from "react";
+
+import { lazy } from "react";
 
 // Lazy load Rider components
 const RequestRide = lazy(() => import("@/pages/Rider/RequestRide"));

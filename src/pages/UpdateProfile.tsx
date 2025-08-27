@@ -49,7 +49,7 @@ const UpdateProfile = () => {
             placeholder="Enter your full name"
           />
           {errors.name && (
-            <p className="text-red-500 text-sm mt-1">{errors?.name?.message}</p>
+            <p className="text-red-500 text-sm mt-1">name is required</p>
           )}
         </div>
 

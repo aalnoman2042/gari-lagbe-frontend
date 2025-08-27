@@ -50,7 +50,7 @@ const Navbar = () => {
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost text-2xl font-bold text-[#175C4F]">
-            RideShare
+            gariLagbe
           </Link>
         </div>
 

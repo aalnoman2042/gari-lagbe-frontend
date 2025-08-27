@@ -8,6 +8,7 @@ export const baseApi = createApi({
   // baseQuery: axiosBaseQuery(),
     baseQuery: fetchBaseQuery({
       baseUrl: 'https://gari-lagbe-backend.vercel.app/gari-lagbe/v1',
+      // baseUrl: 'http://localhost:5000/gari-lagbe/v1',
       credentials: "include"
     }),
   tagTypes: ["USER"],

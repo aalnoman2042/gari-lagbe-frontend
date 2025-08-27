@@ -1,4 +1,5 @@
 import { useRideRequestMutation } from "@/redux/auth.api";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -19,30 +20,39 @@ const RequestRide = () => {
 
 //  console.log(rideInfo);
  
-  
-  const handleSubmit = async () => {
-    if (pickupLocation && destination && fare) {
-      try {
-        const response = await requestRide(rideInfo);
-        
-    
-        
-        if (response.data?.success ) {
-          toast.success("Ride requested successfully!");
-          navigate("/rider/rider-history")
+ const handleSubmit = async () => {
+  if (pickupLocation && destination && fare) {
+    try {
+      const response = await requestRide(rideInfo);
+
+      if ("data" in response && response.data?.success) {
+        toast.success("Ride requested successfully!");
+        navigate("/rider/rider-history");
+      } 
+      else if ("error" in response && "data" in response.error!) {
+        // error.data er type properly check kore use korte hobe
+        const errorData = (response.error as FetchBaseQueryError).data as {
+          success?: boolean;
+          error?: string;
+        };
+
+        if (errorData?.error) {
+          toast.warning(errorData.error);
+        } else {
+          toast.error("Ride request failed!");
         }
-        else if(!response?.error?.data?.success){
-            toast.warning(response?.error?.data?.error)
-            navigate("/rider/rider-history")
-        }
-         
-      } catch (error) {
-        toast.error("Something went wrong.");
+
+        navigate("/rider/rider-history");
       }
-    } else {
-      toast.error("Please fill in all fields!");
+
+    } catch (error) {
+      toast.error("Something went wrong.");
     }
-  };
+  } else {
+    toast.error("Please fill in all fields!");
+  }
+};
+
 
   return (
     <div className="min-h-screen flex flex-col bg-[#f1f1f1] p-6">

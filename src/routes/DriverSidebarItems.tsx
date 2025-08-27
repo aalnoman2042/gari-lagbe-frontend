@@ -4,7 +4,7 @@
 // import DriverHIstory from "@/pages/Driver/DriverHIstory";
 // import OngoingRide from "@/pages/Driver/OngoingRide";
 // import updateProfile from "@/pages/UpdateProfile";
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 
 // Lazy load components
 const AvailableRidesNow = lazy(() => import("@/pages/Driver/availableRidesNow"));

@@ -20,6 +20,7 @@ import ContactForm from "@/pages/ContactForm";
 import NotFound from "@/pages/NotFound";
 
 import { lazy} from "react";
+import Payment from "@/pages/Rider/payment";
 
 // Auth Pages
 const Login = lazy(() => import("../pages/Login"));
@@ -52,6 +53,11 @@ export const router = createBrowserRouter([
     {
          Component: unauthorized,
                 path: "/unauthorized"
+
+    },
+    {
+         Component: Payment,
+                path: "/rider/ride-ongoing/payment"
 
     },
       {
