@@ -6,8 +6,8 @@ import { defineConfig } from "vite"
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
-    define: {
-    __DEFINES__: {},
+  define: {
+    __HMR_CONFIG_NAME__: JSON.stringify('__HMR_CONFIG_NAME__')
   },
   resolve: {
     alias: {
