@@ -24,7 +24,7 @@ const AllRiders = () => {
   };
 
   if (isLoading)
-    return <div className="text-center mt-10">Loading riders...</div>;
+    return <span className="loading loading-spinner loading-max-xl"></span>;;
   if (isError)
     return (
       <div className="text-center mt-10 text-red-500">

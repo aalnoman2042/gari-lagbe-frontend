@@ -1,8 +1,14 @@
 
-import RequestRide from "@/pages/Rider/RequestRide";
-import RiderHistory from "@/pages/Rider/RiderHistory";
-import updateProfile from "@/pages/UpdateProfile";
+// import RequestRide from "@/pages/Rider/RequestRide";
+// import RiderHistory from "@/pages/Rider/RiderHistory";
+// import updateProfile from "@/pages/UpdateProfile";
+import OngoingRide from "@/pages/Driver/OngoingRide";
+import { lazy, Suspense } from "react";
 
+// Lazy load Rider components
+const RequestRide = lazy(() => import("@/pages/Rider/RequestRide"));
+const RiderHistory = lazy(() => import("@/pages/Rider/RiderHistory"));
+const updateProfile = lazy(() => import("@/pages/UpdateProfile"));
 
 
 
@@ -27,6 +33,12 @@ export const RiderSideBarItems = [
                     component: updateProfile,
                   title: "Update My Profile",
                   url: "/rider/updateProfile",
+                
+                },
+                {
+                    component: OngoingRide,
+                  title: "ride on going",
+                  url: "/rider/ride-ongoing",
                 
                 },
        

@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router";
 import App from "../App";
 
-import Login from "../pages/Login";
-import Register from "../pages/Register";
+// import Login from "../pages/Login";
+// import Register from "../pages/Register";
 import DashboardLayout from "@/component/layout/DashboardLayout";
 import { generateRoutes } from "@/utils/generateRoutes";
 import { adminSideBarItems } from "./AdminSidebarItems";
@@ -17,6 +17,13 @@ import { withAuth } from "@/utils/withAuth";
 import { role } from "@/constants/role";
 import unauthorized from "@/pages/unauthorized";
 import ContactForm from "@/pages/ContactForm";
+import NotFound from "@/pages/NotFound";
+
+import { lazy} from "react";
+
+// Auth Pages
+const Login = lazy(() => import("../pages/Login"));
+const Register = lazy(() => import("../pages/Register"));
 
 export const router = createBrowserRouter([
        {
@@ -30,6 +37,11 @@ export const router = createBrowserRouter([
         {
          Component: Login,
                 path: "/login"
+
+    },
+        {
+         Component: NotFound,
+                path: "*"
 
     },
     {

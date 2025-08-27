@@ -15,7 +15,7 @@ export default function DashboardLayout() {
 
   const { data: userData, isLoading } = useUserInfoQuery(undefined);
 
-if (isLoading) return <div>Loading...</div>;
+if (isLoading) return <span className="loading loading-spinner loading-max-xl"></span>;
 
 const driverId = userData?.data?._id;
 console.log(driverId);

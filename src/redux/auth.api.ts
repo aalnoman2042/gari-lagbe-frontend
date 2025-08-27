@@ -1,5 +1,6 @@
 
 import { baseApi } from "@/redux/baseApi";
+
 // import type { IResponse, ISendOtp, IVerifyOtp } from "@/types";
 
 
@@ -103,6 +104,13 @@ export const authApi = baseApi.injectEndpoints({
       }),
       // invalidatesTags: ["USER"],
     }),
+     getRiderOngoingRides: builder.query<any, void>({
+      query: () => ({
+        url: "/ride/ongoingRides",
+        method: "GET",
+      }),
+      // providesTags: ["RiderOngoingRides"],
+    }),
 
     // Admin section 
       allRiders: builder.query({
@@ -155,8 +163,35 @@ export const authApi = baseApi.injectEndpoints({
       }),
       // invalidatesTags: ["USER"],
     }),
+
+
+
+//sos section
+  updateSOSContacts: builder.mutation({
+      query: ({ enableSOS, emergencyContacts }) => ({
+        url: "/user/updateSOSContacts",
+        method: "PATCH",
+        body: { enableSOS, emergencyContacts },
+      }),
+    }),
+    triggerSOS: builder.mutation({
+      query: ({ location }) => ({
+        url: "/user/triggerSOS",
+        method: "PATCH",
+        body: { location },
+      }),
+    }),
+    getSOSInfo: builder.query({
+      query: () => `/user/getSOSInfo`,
+    }),
+
+
    
   }),
+
+ 
+
+
 });
 
 
@@ -175,6 +210,7 @@ useDriverHIstoryQuery,
 useRiderHistoryQuery,
 useRideRequestMutation,
 useCancelRideMutation,
+useGetRiderOngoingRidesQuery,
 
 
 useAllRidersQuery,
@@ -186,7 +222,11 @@ useSuspendDriverMutation,
 useAllRidesQuery,
 useDriverOnlineStatusMutation,
 useUpdateRideStatusMutation,
-useGetRequestedRideQuery
+useGetRequestedRideQuery,
 
 
+
+useGetSOSInfoQuery,
+useTriggerSOSMutation,
+useUpdateSOSContactsMutation
 } = authApi;

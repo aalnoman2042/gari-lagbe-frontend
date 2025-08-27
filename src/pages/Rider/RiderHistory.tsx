@@ -22,7 +22,7 @@ const RiderHistory = () => {
     }
   };
 
-  if (isLoading) return <div className="text-center mt-10">Loading rider history...</div>;
+  if (isLoading) return <span className="loading loading-spinner loading-max-xl"></span>;;
   if (error) return <div className="text-center mt-10 text-red-500">Error loading history</div>;
 
   return (

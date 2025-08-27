@@ -47,7 +47,7 @@ const DriverEarnings = () => {
     };
   }, [earn]);
 
-  if (isLoading) return <h2 className="text-red-700">Data is loading...</h2>;
+  if (isLoading) return <span className="loading loading-spinner loading-max-xl"></span>;;
   if (error) return <h2 className="text-red-700">Error fetching data</h2>;
 
   return (

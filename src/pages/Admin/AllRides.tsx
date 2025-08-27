@@ -1,14 +1,19 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useAllRidesQuery } from "@/redux/auth.api";
+import { useAllRidesQuery, useAllRidersQuery, useAllDriversQuery } from "@/redux/auth.api";
 
 const AllRides = () => {
-  const { data, isLoading, isError } = useAllRidesQuery(undefined);
-console.log(data);
+  const { data: rides, isLoading: ridesLoading, isError: ridesError } = useAllRidesQuery(undefined);
+  const { data: riders, isLoading: ridersLoading } = useAllRidersQuery(undefined);
+  const { data: drivers, isLoading: driversLoading } = useAllDriversQuery(undefined);
 
-  if (isLoading)
-    return <div className="text-center mt-10">Loading rides...</div>;
-  if (isError)
-    return <div className="text-center mt-10 text-red-500">Error loading rides</div>;
+  if (ridesLoading || ridersLoading || driversLoading)
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-white/50 z-50">
+        <span className="loading loading-spinner text-[#175C4F] w-20 h-20"></span>
+      </div>
+    );
+
+  if (ridesError) return <div className="text-center mt-10 text-red-500">Error loading rides</div>;
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -25,9 +30,17 @@ console.log(data);
     }
   };
 
+  // Helper to get user info by ID
+  const getUserById = (id: string, type: "rider" | "driver") => {
+    if (!id) return { name: "N/A", email: "N/A" };
+    const list = type === "rider" ? riders?.data : drivers?.data;
+    const user = list?.find((u: any) => u._id === id);
+    return user || { name: "N/A", email: "N/A" };
+  };
+
   return (
     <div className="p-5">
-      <h2 className="text-2xl font-bold mb-5">All Rides</h2>
+      <h2 className="text-2xl font-bold mb-5 text-[#175C4F]">All Rides</h2>
 
       <div className="overflow-x-auto">
         <table className="min-w-full border border-gray-300">
@@ -44,19 +57,53 @@ console.log(data);
             </tr>
           </thead>
           <tbody>
-            {data?.data?.length > 0 ? (
-              data.data.map((ride: any) => (
-                <tr key={ride._id} className={getStatusColor(ride.status)}>
-                  <td className="px-4 py-2 border">{ride.rider || "N/A"}</td>
-                  <td className="px-4 py-2 border">{ride.driver || "N/A"}</td>
-                  <td className="px-4 py-2 border">{ride.pickupLocation}</td>
-                  <td className="px-4 py-2 border">{ride.destination}</td>
-                  <td className="px-4 py-2 border">{ride.fare} BDT</td>
-                  <td className="px-4 py-2 border capitalize">{ride.status}</td>
-                  <td className="px-4 py-2 border">{new Date(ride.requestedAt).toLocaleString()}</td>
-                  <td className="px-4 py-2 border">{ride.completedAt ? new Date(ride.completedAt).toLocaleString() : "-"}</td>
-                </tr>
-              ))
+            {rides?.data?.length > 0 ? (
+              rides.data.map((ride: any) => {
+                const rider = getUserById(ride.rider, "rider");
+                const driver = getUserById(ride.driver, "driver");
+
+                return (
+                  <tr key={ride._id} className={getStatusColor(ride.status)}>
+                    {/* Rider */}
+                    <td className="px-4 py-2 border">
+                      <div className="flex flex-col">
+                        <span className="font-semibold">{rider.name}</span>
+                        <span className="text-sm text-gray-500">{rider.email}</span>
+                        <span className="text-sm text-gray-500">{rider._id}</span>
+                      </div>
+                    </td>
+
+                    {/* Driver */}
+                    <td className="px-4 py-2 border">
+                      <div className="flex flex-col">
+                        <span className="font-semibold">{driver.name}</span>
+                        <span className="text-sm text-gray-500">{driver.email}</span>
+                        <span className="text-sm text-gray-500">{driver._id}</span>
+                      </div>
+                    </td>
+
+                    {/* Pickup */}
+                    <td className="px-4 py-2 border">{ride.pickupLocation}</td>
+
+                    {/* Destination */}
+                    <td className="px-4 py-2 border">{ride.destination}</td>
+
+                    {/* Fare */}
+                    <td className="px-4 py-2 border">{ride.fare} BDT</td>
+
+                    {/* Status */}
+                    <td className="px-4 py-2 border capitalize">{ride.status}</td>
+
+                    {/* Requested At */}
+                    <td className="px-4 py-2 border">{new Date(ride.requestedAt).toLocaleString()}</td>
+
+                    {/* Completed At */}
+                    <td className="px-4 py-2 border">
+                      {ride.completedAt ? new Date(ride.completedAt).toLocaleString() : "-"}
+                    </td>
+                  </tr>
+                );
+              })
             ) : (
               <tr>
                 <td className="px-4 py-2 border text-center" colSpan={8}>

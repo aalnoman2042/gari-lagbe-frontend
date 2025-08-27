@@ -27,7 +27,7 @@ const RequestRide = () => {
         
     
         
-        if (response.data?.success) {
+        if (response.data?.success ) {
           toast.success("Ride requested successfully!");
           navigate("/rider/rider-history")
         }

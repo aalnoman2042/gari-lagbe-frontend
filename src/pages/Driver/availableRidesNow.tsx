@@ -1,19 +1,25 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // import { useGetRequestedRideQuery, useUpdateRideStatusMutation } from "@/redux/auth.api";
-import { useGetRequestedRideQuery, useUpdateRideStatusMutation } from "@/redux/auth.api";
+import Loading from "@/component/common/loading";
+import { useGetRequestedRideQuery, useUpdateRideStatusMutation, useUserInfoQuery } from "@/redux/auth.api";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
 
 const AvailableRidesNow = () => {
   const { data, isLoading, isError } = useGetRequestedRideQuery(undefined);
   const [updateRideStatus] = useUpdateRideStatusMutation();
+    const { data: driverData } = useUserInfoQuery(undefined); 
   const navigate = useNavigate();
 
-  if (isLoading) return <div className="text-center mt-10">Loading available rides...</div>;
+  if (isLoading) return <Loading></Loading>
   if (isError) return <div className="text-center mt-10 text-red-500">Error loading rides</div>;
 
   const handleAcceptRide = async (rideId: string) => {
-    console.log({  rideId, status: "accepted" });
+    // console.log({  rideId, status: "accepted" });
+    if (!driverData?.data?.onlineStatus) {
+      toast.error("You must be online to accept rides!");
+      return;
+    }
     
     try {
       await updateRideStatus({  rideId, status: "accepted" }).unwrap();

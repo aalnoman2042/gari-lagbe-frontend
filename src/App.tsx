@@ -5,6 +5,7 @@ import Faq from "./component/layout/Faq"
 import About from "./pages/About"
 
 import Contact from "./pages/contact"
+import Features from "./component/layout/Features"
 
 
 function App() {
@@ -14,6 +15,7 @@ return (
   <Outlet></Outlet>
   <HeroSection></HeroSection>
   <About></About>
+  <Features></Features>
   <Faq></Faq>
   <Contact></Contact>
  

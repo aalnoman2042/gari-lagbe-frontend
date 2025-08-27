@@ -1,9 +1,17 @@
 
-import AvailableRidesNow from "@/pages/Driver/availableRidesNow";
-import DriverEarnings from "@/pages/Driver/DriverEarnings";
-import DriverHIstory from "@/pages/Driver/DriverHIstory";
-import OngoingRide from "@/pages/Driver/OngoingRide";
-import updateProfile from "@/pages/UpdateProfile";
+// import AvailableRidesNow from "@/pages/Driver/availableRidesNow";
+// import DriverEarnings from "@/pages/Driver/DriverEarnings";
+// import DriverHIstory from "@/pages/Driver/DriverHIstory";
+// import OngoingRide from "@/pages/Driver/OngoingRide";
+// import updateProfile from "@/pages/UpdateProfile";
+import { lazy, Suspense } from "react";
+
+// Lazy load components
+const AvailableRidesNow = lazy(() => import("@/pages/Driver/availableRidesNow"));
+const DriverEarnings = lazy(() => import("@/pages/Driver/DriverEarnings"));
+const DriverHIstory = lazy(() => import("@/pages/Driver/DriverHIstory"));
+const OngoingRide = lazy(() => import("@/pages/Driver/OngoingRide"));
+const updateProfile = lazy(() => import("@/pages/UpdateProfile"));
 
 
 

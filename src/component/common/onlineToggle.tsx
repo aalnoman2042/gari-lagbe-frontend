@@ -34,13 +34,23 @@ export const OnlineToggle: React.FC<Props> = ({ driverId, currentStatus }) => {
       >
         {online ? "Online" : "Offline"}
       </span>
-      <button
-        onClick={handleToggle}
-        disabled={isLoading}
-        className="px-3 py-1 bg-[#175C4F] text-white rounded hover:bg-black transition"
-      >
-        Toggle
-      </button>
+<div className="flex items-center space-x-3">
+  <span className="text-gray-700">Status:</span>
+  <button
+    onClick={handleToggle}
+    disabled={isLoading}
+    className={`w-14 h-8 flex items-center rounded-full p-1 duration-300 ${
+      online ? "bg-[#175C4F]" : "bg-gray-300"
+    }`}
+  >
+    <div
+      className={`bg-white w-6 h-6 rounded-full shadow-md transform duration-300 ${
+        online ? "translate-x-6" : "translate-x-0"
+      }`}
+    ></div>
+  </button>
+</div>
+
     </div>
   );
 };

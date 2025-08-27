@@ -1,65 +1,79 @@
+import middleTop from "../../assets/_middle-section-top.svg"
+import middleBottom from "../../assets/_middle-section-bottom.svg"
 
 const Faq = () => {
-    return (
-        <div>
-            <div className="grid py-10 mt-5 text-white bg-black md:grid-cols-2 gap-9 ">
-            <div className="px-12 space-y-4">
-                <div tabIndex={0} className="bg-black border border-white collapse collapse-arrow rounded-box">
-                    <div className="text-xl font-medium collapse-title">
-                        What technologies do you work with?
-                    </div>
-                    <div className="collapse-content">
-                        <p>I primarily work with the MERN stack (MongoDB, Express.js, React.js, Node.js), SQL,Redux. I also have experience with TypeScript, Tailwind CSS, Firebase, and deployment tools like Vercel and Netlify.</p>
-                    </div> 
-                </div>
-                <div tabIndex={0} className="bg-black border border-white collapse collapse-arrow rounded-box">
-                    <div className="text-xl font-medium collapse-title">
-                        Are you available for freelance or full-time work?
-                    </div>
-                    <div className="collapse-content">
-                        <p>Yes! I'm currently open to both freelance and full-time opportunities. Feel free to contact me if you have a project or position in mind.I prefer full time first.</p>
-                    </div>
-                </div>
-                <div tabIndex={0} className="bg-black border border-white collapse collapse-arrow rounded-box">
-                    <div className="text-xl font-medium collapse-title">
-                         Do you work with teams or only solo?
-                    </div>
-                    <div className="collapse-content">
-                        <p>Both. I’ve worked solo on client projects and also collaborated in teams using tools like Git, Jira, Trello, Slack, etc. I’m comfortable adapting to any workflow.</p>
-                    </div>
-                </div>
-               
+  return (
+
+
+   <div>
+    <img src={middleTop} alt="" className="w-full" />
+    <img src={middleBottom} alt=""  className="w-full"/>
+     <div className="bg-black py-10 text-white">
+        
+      <div className="max-w-6xl mx-auto md:grid md:grid-cols-2 gap-9 px-6">
+        {/* Left Column */}
+        <div className="space-y-4">
+          <div tabIndex={0} className="collapse collapse-arrow border rounded-box border-[#175C4F]">
+            <div className="text-xl font-medium collapse-title text-[#175C4F]">
+              How do I request a ride?
             </div>
-            <div className="px-12 space-y-4">
-                <div tabIndex={0} className="bg-black border border-white collapse collapse-arrow rounded-box">
-                    <div className="text-xl font-medium collapse-title">
-                         How can I contact you?
-                    </div>
-                    <div className="collapse-content">
-                        <p>You can reach out via the Contact page on this website, or message me directly on LinkedIn or by email — all links are available in the footer.</p>
-                    </div>
-                </div>
-                <div tabIndex={0} className="bg-black border border-white collapse collapse-arrow rounded-box">
-                    <div className="text-xl font-medium collapse-title">
-                        Can I see some of your previous work?
-                    </div>
-                    <div className="collapse-content">
-                        <p>Absolutely. You can check out the Projects section of this site or visit my GitHub profile to explore my recent work and open-source contributions.</p>
-                    </div>
-                </div>
-                <div tabIndex={0} className="bg-black border border-white collapse collapse-arrow rounded-box">
-                    <div className="text-xl font-medium collapse-title">
-                        Why should I hire you over others?
-                    </div>
-                    <div className="collapse-content">
-                        <p>I focus not just on writing code, but on solving real problems. I blend clean design, functional logic, and performance-driven development to deliver results that align with your business goals. I’m committed to quality and long-term value.</p>
-                    </div>
-                </div>
-              
+            <div className="collapse-content text-gray-200">
+              <p>Open the app, enter your pickup and destination, and click "Book a Ride". You’ll be instantly matched with a nearby driver.</p>
             </div>
+          </div>
+
+          <div tabIndex={0} className="collapse collapse-arrow border rounded-box border-[#175C4F]">
+            <div className="text-xl font-medium collapse-title text-[#175C4F]">
+              Can I schedule rides in advance?
+            </div>
+            <div className="collapse-content text-gray-200">
+              <p>Yes! You can select a future date and time for your ride, and our system will ensure a driver is available when you need it.</p>
+            </div>
+          </div>
+
+          <div tabIndex={0} className="collapse collapse-arrow border rounded-box border-[#175C4F]">
+            <div className="text-xl font-medium collapse-title text-[#175C4F]">
+              How do I pay for rides?
+            </div>
+            <div className="collapse-content text-gray-200">
+              <p>You can pay via in-app wallet, credit/debit cards, or other supported digital payment methods.</p>
+            </div>
+          </div>
         </div>
+
+        {/* Right Column */}
+        <div className="space-y-4">
+          <div tabIndex={0} className="collapse collapse-arrow border rounded-box border-[#175C4F]">
+            <div className="text-xl font-medium collapse-title text-[#175C4F]">
+              What if a driver cancels my ride?
+            </div>
+            <div className="collapse-content text-gray-200">
+              <p>If a driver cancels, the system will instantly match you with another nearby driver. You’ll be notified immediately.</p>
+            </div>
+          </div>
+
+          <div tabIndex={0} className="collapse collapse-arrow border rounded-box border-[#175C4F]">
+            <div className="text-xl font-medium collapse-title text-[#175C4F]">
+              Is it safe to use the app?
+            </div>
+            <div className="collapse-content text-gray-200">
+              <p>Yes! All drivers are verified and our app uses secure GPS tracking. You can share your ride status with family or friends for added safety.</p>
+            </div>
+          </div>
+
+          <div tabIndex={0} className="collapse collapse-arrow border rounded-box border-[#175C4F]">
+            <div className="text-xl font-medium collapse-title text-[#175C4F]">
+              How can I become a driver?
+            </div>
+            <div className="collapse-content text-gray-200">
+              <p>You can sign up as a driver via the app, submit your documents for verification, and start accepting ride requests once approved.</p>
+            </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+   </div>
+  );
 };
 
 export default Faq;
