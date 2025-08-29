@@ -26,8 +26,8 @@ const About = () => {
 
   return (
     <div>
-      <img src={curve_image} className="w-full" alt="" />
-      <section className="bg-[#1B6D5F] py-16 px-6">
+     <img src={curve_image} className="w-full mb-[-0.1px]" alt="" />
+<section className="bg-[#1B6D5F] py-16 px-6 relative z-10">
         <div className="max-w-6xl mx-auto text-center">
           {/* Title */}
           <h2 className="text-4xl font-bold text-white mb-12">

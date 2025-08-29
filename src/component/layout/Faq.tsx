@@ -6,8 +6,8 @@ const Faq = () => {
 
 
    <div>
-    <img src={middleTop} alt="" className="w-full" />
-    <img src={middleBottom} alt=""  className="w-full"/>
+    <img src={middleTop} alt="" className="w-full block " />
+    <img src={middleBottom} alt="" className="w-full block mt-[-0.5px]" />
      <div className="bg-black py-10 text-white">
         
       <div className="max-w-6xl mx-auto md:grid md:grid-cols-2 gap-9 px-6">

@@ -1,54 +1,88 @@
-# React + TypeScript + Vite
+# 🚖 Ride Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A production-grade, fully responsive ride booking platform (similar to Uber or Pathao) with role-based dashboards for Riders, Drivers, and Admins.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌐 Live Deployment
+- **Frontend:** [Frontend Live Link](https://gari-lagbe-frontend.vercel.app/)  
+- **Backend:** [Backend Live Link](https://gari-lagbe-backend.vercel.app/)  
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## 📖 Project Overview
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+This project is a full-stack ride booking application designed to provide a seamless experience for riders to request rides, and drivers to manage ride requests efficiently. The application includes:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- Role-based dashboards (Rider, Driver, Admin)  
+- Real-time ride notifications for drivers  
+- Emergency/SOS integration for safety  
+- Analytics and earnings dashboards  
+- Complete ride management, including booking, tracking, and history  
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+---
+
+## ✨ Project Features
+
+### Rider Features
+- Request a ride with pickup & destination fields  
+- Fare estimation and payment method selection  
+- Live ride tracking (optional map integration)  
+- Ride history with search & filters  
+- Profile management (edit info, change password)  
+- SOS/Emergency button for safety  
+
+### Driver Features
+- Online/Offline toggle for availability  
+- Real-time ride requests notifications  
+- Accept/Reject ride requests directly from notifications  
+- Active ride management with status updates  
+- Earnings dashboard (daily, weekly, monthly)  
+- Ride history and profile management  
+
+### Admin Features
+- Manage users (approve, suspend, block/unblock)  
+- View all rides with advanced filters  
+- Analytics dashboard with charts and tables  
+- Profile management  
+
+### General Features
+- JWT-based authentication & role-based access  
+- Fully responsive design for mobile, tablet, and desktop  
+- Form validation & proper error handling with toasts  
+- Emergency/SOS contact management  
+- Lazy-loading for heavy assets ( large tables)  
+- Accessibility-compliant components  
+
+---
+
+## 🛠 Technology Stack
+
+### Frontend
+- React.js + TypeScript  
+- Redux Toolkit & RTK Query  
+- Tailwind CSS for styling  
+- React Router for routing  
+- Optional: Recharts, React Hot Toast  
+
+### Backend
+- Node.js + Express  
+- MongoDB (Mongoose)  
+- JWT authentication + bcrypt password hashing  
+
+
+---
+
+## ⚙️ Setup Instructions
+
+### Prerequisites
+- Node.js v18+  
+- npm or yarn  
+- MongoDB database  
+
+### Frontend Setup
+```bash
+cd frontend
+npm install
+npm run dev

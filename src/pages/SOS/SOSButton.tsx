@@ -1,4 +1,4 @@
-import { useGetSOSInfoQuery, useTriggerSOSMutation, useUserInfoQuery } from "@/redux/auth.api";
+import { useGetSOSInfoQuery,  useUserInfoQuery } from "@/redux/auth.api";
 import { JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";

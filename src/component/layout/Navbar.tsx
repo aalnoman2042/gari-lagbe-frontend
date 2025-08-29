@@ -43,10 +43,10 @@ const Navbar = () => {
               {data?.data?.role === "driver" && <li><Link to="/driver">Driver Dashboard</Link></li>}
               {data?.data?.role === "admin" && <li><Link to="/admin">Admin Dashboard</Link></li>}
 
-              <li><Link to="/">...</Link></li>
+              {/* <li><Link to="/">...</Link></li> */}
               <li><Link to="/contact">Contact</Link></li>
-              <li><Link to="/">....</Link></li>
-              <li><Link to="/">...</Link></li>
+              {/* <li><Link to="/">....</Link></li> */}
+              {/* <li><Link to="/">...</Link></li> */}
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost text-2xl font-bold text-[#175C4F]">
@@ -64,10 +64,10 @@ const Navbar = () => {
             {data?.data?.role === "driver" && <li><Link to="/driver" className="hover:text-[#175C4F] transition">Driver Dashboard</Link></li>}
             {data?.data?.role === "admin" && <li><Link to="/admin" className="hover:text-[#175C4F] transition">Admin Dashboard</Link></li>}
 
-            <li><Link to="/" className="hover:text-[#175C4F] transition">All Rides</Link></li>
+            {/* <li><Link to="/" className="hover:text-[#175C4F] transition">All Rides</Link></li> */}
             <li><Link to="/contact" className="hover:text-[#175C4F] transition">contact</Link></li>
-            <li><Link to="/" className="hover:text-[#175C4F] transition">Support</Link></li>
-            <li><Link to="/" className="hover:text-[#175C4F] transition">About</Link></li>
+            {/* <li><Link to="/" className="hover:text-[#175C4F] transition">Support</Link></li> */}
+            {/* <li><Link to="/" className="hover:text-[#175C4F] transition">About</Link></li> */}
           </ul>
         </div>
 
