@@ -10,10 +10,12 @@ const HeroSection = () => {
     if (!user?.data) {
       navigate("/login");
     } else if (user.data.role === "driver") {
-      navigate("/driver/dashboard");
-    } else {
-      navigate("/rider/dashboard");
+      navigate("/driver");
+    } else if(user.data.role === "rider"){
+      navigate("/rider");
     }
+    else
+      navigate("/unauthorized")
   };
 
   const handleBecomeDriver = () => {

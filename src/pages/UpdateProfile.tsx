@@ -28,75 +28,82 @@ const UpdateProfile = () => {
     setValue("email", user?.data?.email);
   }
 
-  if (isLoading) return <Loading></Loading>;
+  if (isLoading) return <Loading />;
   if (isError) return <div>Error loading user data</div>;
 
   return (
-    <div className="w-[60%] mx-auto p-12 bg-white rounded-2xl shadow-2xl mt-12 transition-transform duration-300 hover:scale-[1.01]">
-      <h2 className="text-4xl font-bold text-center mb-10 text-[#175C4F]">
+    <div className="w-[50%] max-w-md mx-auto p-8 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl mt-12 transition-transform duration-300 hover:scale-[1.02]">
+      <h2 className="text-3xl font-bold text-center mb-8 text-[#175C4F]">
         Update Your Profile
       </h2>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Name */}
         <div>
-          <label className="block text-gray-700 mb-2 text-lg">Name</label>
+          <label className="block text-gray-700 mb-1 text-base font-medium">
+            Name
+          </label>
           <input
             type="text"
             {...register("name", { required: "Name is required" })}
-            className="w-full p-5 border border-gray-300 rounded-xl 
+            className="w-full p-4 border border-gray-300 rounded-xl 
                        focus:outline-none focus:ring-2 focus:ring-[#175C4F] focus:border-[#175C4F] 
-                       transition-all duration-300 ease-in-out hover:shadow-lg text-lg"
+                       transition-all duration-300 ease-in-out hover:shadow-md text-base"
             placeholder="Enter your full name"
           />
-          {errors.name && (
-            <p className="text-red-500 text-sm mt-1">name is required</p>
-          )}
+          {/* {errors.name && (
+            <p className="text-red-500 text-sm mt-1">{errors?.name.message}</p>
+          )} */}
         </div>
 
         {/* Email */}
         <div>
-          <label className="block text-gray-700 mb-2 text-lg">Email</label>
+          <label className="block text-gray-700 mb-1 text-base font-medium">
+            Email
+          </label>
           <input
             type="email"
             value={user?.data?.email || ""}
             readOnly
-            className="w-full p-5 border border-gray-300 rounded-xl bg-gray-100 cursor-not-allowed text-lg"
+            className="w-full p-4 border border-gray-300 rounded-xl bg-gray-100 cursor-not-allowed text-base"
           />
         </div>
 
         {/* Old Password */}
         <div>
-          <label className="block text-gray-700 mb-2 text-lg">Old Password</label>
+          <label className="block text-gray-700 mb-1 text-base font-medium">
+            Old Password
+          </label>
           <input
             type="password"
             {...register("oldPassword")}
             placeholder="******"
-            className="w-full p-5 border border-gray-300 rounded-xl 
+            className="w-full p-4 border border-gray-300 rounded-xl 
                        focus:outline-none focus:ring-2 focus:ring-[#175C4F] focus:border-[#175C4F] 
-                       transition-all duration-300 ease-in-out hover:shadow-lg text-lg"
+                       transition-all duration-300 ease-in-out hover:shadow-md text-base"
           />
         </div>
 
         {/* New Password */}
         <div>
-          <label className="block text-gray-700 mb-2 text-lg">New Password</label>
+          <label className="block text-gray-700 mb-1 text-base font-medium">
+            New Password
+          </label>
           <input
             type="password"
             {...register("newPassword")}
             placeholder="******"
-            className="w-full p-5 border border-gray-300 rounded-xl 
+            className="w-full p-4 border border-gray-300 rounded-xl 
                        focus:outline-none focus:ring-2 focus:ring-[#175C4F] focus:border-[#175C4F] 
-                       transition-all duration-300 ease-in-out hover:shadow-lg text-lg"
+                       transition-all duration-300 ease-in-out hover:shadow-md text-base"
           />
         </div>
 
         {/* Submit Button */}
         <button
           type="submit"
-          className="w-full p-5 bg-[#175C4F] text-white text-xl font-semibold 
-                     rounded-xl shadow-xl hover:bg-black 
-                     focus:outline-none focus:ring-4 focus:ring-[#175C4F]/50 
+          className="w-full p-4 bg-gradient-to-r from-[#175C4F] to-[#1B6D5F] text-white text-lg font-semibold 
+                     rounded-xl shadow-lg hover:opacity-90 focus:outline-none focus:ring-4 focus:ring-[#175C4F]/50 
                      transition-all duration-300 ease-in-out"
         >
           Update

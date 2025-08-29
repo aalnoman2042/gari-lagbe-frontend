@@ -3,6 +3,7 @@ import { authApi, useLogoutMutation, useUserInfoQuery } from "@/redux/auth.api";
 import { useAppDispatch } from "@/redux/hook";
 import { Link } from "react-router";
 import { toast } from "sonner";
+import logo from "../../assets/Gari-lagbe.png"
 
 const Navbar = () => {
   const { data } = useUserInfoQuery(undefined);
@@ -34,7 +35,7 @@ const Navbar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="menu menu-sm dropdown-content bg-white rounded-box mt-3 w-52 p-2 shadow-lg"
+              className="menu menu-sm dropdown-content   text-white bg-[#175C4F] rounded-box mt-3 w-52 p-2 shadow-lg"
             >
               <li><Link to="/">Home</Link></li>
 
@@ -50,13 +51,13 @@ const Navbar = () => {
             </ul>
           </div>
           <Link to="/" className="btn btn-ghost text-2xl font-bold text-[#175C4F]">
-            gariLagbe
+            <img src={logo} alt="" className="w-[100px]" />
           </Link>
         </div>
 
         {/* Center */}
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1 gap-6">
+          <ul className="menu menu-horizontal px-1 gap-6 text-lg">
             <li><Link to="/" className="hover:text-[#175C4F] transition">Home</Link></li>
 
             {/* Dashboard - role based */}

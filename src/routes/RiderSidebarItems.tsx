@@ -2,8 +2,8 @@
 // import RequestRide from "@/pages/Rider/RequestRide";
 // import RiderHistory from "@/pages/Rider/RiderHistory";
 // import updateProfile from "@/pages/UpdateProfile";
-import OngoingRide from "@/pages/Driver/OngoingRide";
-import SOSContactUpdate from "@/pages/SOS/SOSContactUpdate";
+// import OngoingRide from "@/pages/Driver/OngoingRide";
+// import SOSContactUpdate from "@/pages/SOS/SOSContactUpdate";
 
 import { lazy } from "react";
 
@@ -11,12 +11,14 @@ import { lazy } from "react";
 const RequestRide = lazy(() => import("@/pages/Rider/RequestRide"));
 const RiderHistory = lazy(() => import("@/pages/Rider/RiderHistory"));
 const updateProfile = lazy(() => import("@/pages/UpdateProfile"));
+const OngoingRide = lazy(() => import("@/pages/Driver/OngoingRide"));
+const SOSContactUpdate = lazy(() => import("@/pages/SOS/SOSContactUpdate"));
 
 
 
 export const RiderSideBarItems = [
     {
-      title: "your Dashboard",
+      title: "Rider Dashboard",
       url: "#",
       items: [
         {

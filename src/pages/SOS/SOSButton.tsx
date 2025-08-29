@@ -5,6 +5,10 @@ import { toast } from "sonner";
 import emailjs from "@emailjs/browser";
 import config from "@/config/config";
 
+
+
+
+
 const SOSButton = ({ isActiveRide }: { isActiveRide: boolean }) => {
   const [open, setOpen] = useState(false);
   const { data: sosInfo } = useGetSOSInfoQuery(undefined);

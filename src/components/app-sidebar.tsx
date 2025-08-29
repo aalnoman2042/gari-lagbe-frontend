@@ -19,7 +19,7 @@ import { Link } from "react-router"
 import { getSideBarItems } from "@/utils/getSideBarItems"
 import { useUserInfoQuery } from "@/redux/auth.api"
 // import { useUserInfoQuery } from "@/redux/features/auth/auth.api"
-
+import logo from ".././assets/Gari-lagbe.png"
 // This is sample data.
 
 
@@ -40,7 +40,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar  {...props}>
       <SidebarHeader className="bg-[#175C4F]">
         {/* <Logo></Logo> */}
-        <h1><Link to={"/"}>Gari-Lagbe</Link></h1>
+        <h1><Link to={"/"}>
+        <img src={logo} alt="" className="bg-white w-[150px] h-[80px]" />
+        </Link></h1>
       </SidebarHeader>
       <SidebarContent className="bg-[#175C4F]">
         {/* We create a SidebarGroup for each parent. */}

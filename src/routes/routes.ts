@@ -3,24 +3,27 @@ import App from "../App";
 
 // import Login from "../pages/Login";
 // import Register from "../pages/Register";
-import DashboardLayout from "@/component/layout/DashboardLayout";
+// import DashboardLayout from "@/component/layout/DashboardLayout";
 import { generateRoutes } from "@/utils/generateRoutes";
 import { adminSideBarItems } from "./AdminSidebarItems";
 import { RiderSideBarItems } from "./RiderSidebarItems";
-
 import { DriverSideBarItems } from "./DriverSidebarItems";
-import RequestRide from "@/pages/Rider/RequestRide";
-import Analytics from "@/pages/Admin/Analytics";
-import DriverHIstory from "@/pages/Driver/DriverHIstory";
 import { TRole } from "@/types/sideBarTypes";
 import { withAuth } from "@/utils/withAuth";
 import { role } from "@/constants/role";
-import unauthorized from "@/pages/unauthorized";
-import ContactForm from "@/pages/ContactForm";
-import NotFound from "@/pages/NotFound";
 
-import { lazy} from "react";
-import Payment from "@/pages/Rider/payment";
+import { lazy } from "react";
+
+// Lazy load pages
+const RequestRide = lazy(() => import("@/pages/Rider/RequestRide"));
+const Analytics = lazy(() => import("@/pages/Admin/Analytics"));
+const unauthorized = lazy(() => import("@/pages/unauthorized"));
+const ContactForm = lazy(() => import("@/pages/ContactForm"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
+const Payment = lazy(() => import("@/pages/Rider/payment"));
+const DriverEarnings = lazy(() => import("@/pages/Driver/DriverEarnings"));
+const DashboardLayout = lazy(() => import("@/component/layout/DashboardLayout"));
+
 
 // Auth Pages
 const Login = lazy(() => import("../pages/Login"));
@@ -87,7 +90,7 @@ export const router = createBrowserRouter([
         Component: withAuth(DashboardLayout, role.driver as TRole),
         path: "/driver",
         children:[
-            { index: true, Component: DriverHIstory },
+            { index: true, Component: DriverEarnings },
           ...generateRoutes(DriverSideBarItems)
         ]
     },

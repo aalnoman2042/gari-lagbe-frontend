@@ -4,7 +4,7 @@
 // import DriverHIstory from "@/pages/Driver/DriverHIstory";
 // import OngoingRide from "@/pages/Driver/OngoingRide";
 // import updateProfile from "@/pages/UpdateProfile";
-import SOSContactUpdate from "@/pages/SOS/SOSContactUpdate";
+// import SOSContactUpdate from "@/pages/SOS/SOSContactUpdate";
 import { lazy } from "react";
 
 // Lazy load components
@@ -13,6 +13,7 @@ const DriverEarnings = lazy(() => import("@/pages/Driver/DriverEarnings"));
 const DriverHIstory = lazy(() => import("@/pages/Driver/DriverHIstory"));
 const OngoingRide = lazy(() => import("@/pages/Driver/OngoingRide"));
 const updateProfile = lazy(() => import("@/pages/UpdateProfile"));
+const SOSContactUpdate = lazy(() => import("@/pages/SOS/SOSContactUpdate"));
 
 
 
@@ -20,7 +21,7 @@ const updateProfile = lazy(() => import("@/pages/UpdateProfile"));
 
 export const DriverSideBarItems = [
     {
-      title: "History",
+      title: "Driver Dashboard",
       url: "#",
       items: [
         {
