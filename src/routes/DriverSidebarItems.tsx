@@ -4,6 +4,7 @@
 // import DriverHIstory from "@/pages/Driver/DriverHIstory";
 // import OngoingRide from "@/pages/Driver/OngoingRide";
 // import updateProfile from "@/pages/UpdateProfile";
+import SOSContactUpdate from "@/pages/SOS/SOSContactUpdate";
 import { lazy } from "react";
 
 // Lazy load components
@@ -50,6 +51,12 @@ export const DriverSideBarItems = [
             component: OngoingRide,
           title: "OnGoing Ride",
           url: "/driver/ongoing",
+        
+        },
+        {
+            component: SOSContactUpdate,
+          title: "SOS Contact Update",
+          url: "/driver/sos-update",
         
         },
        

@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import Loading from "@/component/common/loading";
 import { useAllRidesQuery, useAllRidersQuery, useAllDriversQuery } from "@/redux/auth.api";
 
 const AllRides = () => {
@@ -8,9 +9,7 @@ const AllRides = () => {
 
   if (ridesLoading || ridersLoading || driversLoading)
     return (
-      <div className="fixed inset-0 flex items-center justify-center bg-white/50 z-50">
-        <span className="loading loading-spinner text-[#175C4F] w-20 h-20"></span>
-      </div>
+     <Loading></Loading>
     );
 
   if (ridesError) return <div className="text-center mt-10 text-red-500">Error loading rides</div>;

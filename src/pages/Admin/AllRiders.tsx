@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
+import Loading from "@/component/common/loading";
 import { useAllRidersQuery, useBlockUserMutation, useUnBlockUserMutation } from "@/redux/auth.api";
 import { toast } from "sonner";
 
@@ -24,7 +25,7 @@ const AllRiders = () => {
   };
 
   if (isLoading)
-    return <span className="loading loading-spinner loading-max-xl"></span>;;
+    return <Loading></Loading>;
   if (isError)
     return (
       <div className="text-center mt-10 text-red-500">

@@ -3,6 +3,7 @@
 // import RiderHistory from "@/pages/Rider/RiderHistory";
 // import updateProfile from "@/pages/UpdateProfile";
 import OngoingRide from "@/pages/Driver/OngoingRide";
+import SOSContactUpdate from "@/pages/SOS/SOSContactUpdate";
 
 import { lazy } from "react";
 
@@ -42,6 +43,12 @@ export const RiderSideBarItems = [
                   url: "/rider/ride-ongoing",
                 
                 },
+                  {
+            component: SOSContactUpdate,
+          title: "SOS Contact Update",
+          url: "/rider/sos-update",
+        
+        },
        
       ],
     },

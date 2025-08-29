@@ -10,6 +10,7 @@ import {
 } from "@/redux/auth.api";
 
 import { Link } from "react-router";
+import Loading from "@/component/common/loading";
 
 const statusOrder = ["accepted", "picked_up", "in_transit", "completed"];
 
@@ -40,7 +41,7 @@ const OngoingRide = () => {
   const [updateRideStatus] = useUpdateRideStatusMutation();
   const [loadingRide, setLoadingRide] = useState<string | null>(null);
 
-  if (isLoading) return <span className="loading loading-spinner loading-max-xl"></span>;
+  if (isLoading) return <Loading></Loading>;
   if (isError) return <div className="text-center mt-10 text-red-500">Error loading rides</div>;
 
   const ongoingRides = ridesData?.filter(

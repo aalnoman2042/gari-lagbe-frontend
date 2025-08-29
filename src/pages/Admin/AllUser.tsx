@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useAllUsersQuery } from "@/redux/auth.api";
+import Loading from "@/component/common/loading";
 
 const AllUser = () => {
   const { data, isLoading, isError, refetch } = useAllUsersQuery(undefined);
@@ -9,7 +10,7 @@ const AllUser = () => {
   }, [refetch]);
 
   if (isLoading) {
-    return <span className="loading loading-spinner loading-lg"></span>;
+    return <Loading></Loading>;
   }
 
   if (isError) {

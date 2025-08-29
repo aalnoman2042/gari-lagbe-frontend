@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import Loading from "@/component/common/loading";
 import { authApi, useCancelRideMutation, useRiderHistoryQuery, useUserInfoQuery } from "@/redux/auth.api";
 import { useAppDispatch } from "@/redux/hook";
 import { toast } from "sonner";
@@ -22,7 +23,7 @@ const RiderHistory = () => {
     }
   };
 
-  if (isLoading) return <span className="loading loading-spinner loading-max-xl"></span>;;
+  if (isLoading) return <Loading></Loading>;
   if (error) return <div className="text-center mt-10 text-red-500">Error loading history</div>;
 
   return (

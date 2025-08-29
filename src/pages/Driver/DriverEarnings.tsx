@@ -12,6 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import dayjs from "dayjs";
+import Loading from "@/component/common/loading";
 
 const DriverEarnings = () => {
   const { data: driver } = useUserInfoQuery(undefined);
@@ -47,7 +48,7 @@ const DriverEarnings = () => {
     };
   }, [earn]);
 
-  if (isLoading) return <span className="loading loading-spinner loading-max-xl"></span>;;
+  if (isLoading) return <Loading></Loading>;
   if (error) return <h2 className="text-red-700">Error fetching data</h2>;
 
   return (

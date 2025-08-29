@@ -9,13 +9,14 @@ import {
 import { Outlet } from "react-router"
 import { OnlineToggle } from "../common/onlineToggle"
 import { useUserInfoQuery } from "@/redux/auth.api"
+import Loading from "../common/loading"
 // import OnlineToggle from "../common/onlineToggle"
 
 export default function DashboardLayout() {
 
   const { data: userData, isLoading } = useUserInfoQuery(undefined);
 
-if (isLoading) return <span className="loading loading-spinner loading-max-xl"></span>;
+if (isLoading) return <Loading></Loading>;
 
 const driverId = userData?.data?._id;
 console.log(driverId);

@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 const HeroSection = () => {
   return (
     <div>
@@ -18,12 +20,12 @@ const HeroSection = () => {
             <p className="mb-8 text-lg">
               Request a ride, track your driver in real-time, and reach your destination safely and quickly.
             </p>
-            <a
-              href="/request-ride"
+            <Link
+              to="/login"
               className="inline-block bg-[#175C4F] hover:bg-black text-white font-semibold px-8 py-3 rounded-xl shadow-lg transition duration-300"
             >
               Book a Ride
-            </a>
+            </Link>
           </div>
         </div>
       </div>

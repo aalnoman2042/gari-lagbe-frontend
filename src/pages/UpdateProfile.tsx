@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useUserInfoQuery, useUpdateUserMutation } from "@/redux/auth.api";
 import { toast } from "sonner";
+import Loading from "@/component/common/loading";
 
 const UpdateProfile = () => {
   const {
@@ -27,7 +28,7 @@ const UpdateProfile = () => {
     setValue("email", user?.data?.email);
   }
 
-  if (isLoading) return <span className="loading loading-spinner loading-lg"></span>;
+  if (isLoading) return <Loading></Loading>;
   if (isError) return <div>Error loading user data</div>;
 
   return (
