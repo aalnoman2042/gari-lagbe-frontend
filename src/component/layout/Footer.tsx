@@ -1,8 +1,10 @@
+
 import logo from "../../assets/Gari-lagbe.png"
 
 const Footer = () => {
   return (
     <div>
+      
       <footer className="footer footer-horizontal footer-center bg-black text-white p-10">
         <aside className="flex flex-col items-center gap-3">
           {/* Logo */}

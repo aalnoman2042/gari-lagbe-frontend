@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import SOSButton from "../SOS/SOSButton";
 import {
@@ -11,6 +11,8 @@ import {
 
 import { Link } from "react-router";
 import Loading from "@/component/common/loading";
+import MapComponent from "../Map/MapComponent";
+
 
 const statusOrder = ["accepted", "picked_up", "in_transit", "completed"];
 
@@ -18,12 +20,33 @@ const OngoingRide = () => {
   const { data: userData } = useUserInfoQuery(undefined);
   const role = userData?.data?.role;
   const userId = userData?.data?._id;
+   const [location, setLocation] = useState<{ lat: number | null, lng: number | null }>({ lat: null, lng: null });
+
+  //  location sending
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setLocation({ lat: latitude, lng: longitude });
+                },
+                (error) => {
+                    console.error("Error getting location:", error);
+                }
+            );
+        } else {
+            console.error("Geolocation is not supported by this browser.");
+        }
+    }, []);
+
 
   let ridesData;
   let isLoading = false;
   let isError = false;
   let refetch: (() => void) | undefined;
 
+
+    // cheacking role and setting up data based on role
   if (role === "driver") {
     const driverQuery = useDriverHIstoryQuery(userId!, { skip: false });
     ridesData = driverQuery.data?.data;
@@ -48,6 +71,7 @@ const OngoingRide = () => {
     (ride: any) => ride.status !== "completed" && ride.status !== "cancelled"
   );
 
+  // changing status of ride
   const handleStatusUpdate = async (rideId: string, currentStatus: string) => {
     const nextIndex = statusOrder.indexOf(currentStatus) + 1;
     if (nextIndex >= statusOrder.length) return;
@@ -66,6 +90,10 @@ const OngoingRide = () => {
     }
   };
 
+ 
+
+ 
+
   return (
     <div className="flex flex-col items-center py-6 gap-6">
       <SOSButton isActiveRide={ongoingRides && ongoingRides.length > 0} />
@@ -77,7 +105,7 @@ const OngoingRide = () => {
           return (
             <div
               key={ride._id}
-              className="bg-gradient-to-br from-[#E0F7F2] to-white border border-gray-200 rounded-3xl shadow-lg p-6 w-[80vw] max-w-2xl transition transform hover:scale-[1.02]"
+              className="bg-gradient-to-br from-[#E0F7F2] to-white border border-gray-200 rounded-3xl shadow-lg p-6 w-[92vw] max-w-2xl transition transform hover:scale-[1.02]"
             >
               <div className="mb-4">
                 <h2 className="text-xl font-bold text-[#175C4F]">Pickup</h2>
@@ -134,6 +162,11 @@ const OngoingRide = () => {
                   </button>
                 )}
               </div>
+            {/* map */}
+            <div className="my-3.5">
+              
+              <MapComponent lat={location.lat} lng={location.lng} /> 
+            </div>
             </div>
           );
         })

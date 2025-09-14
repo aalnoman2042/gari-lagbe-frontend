@@ -8,7 +8,6 @@ const UpdateProfile = () => {
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
   } = useForm();
   const { data: user, isLoading, isError } = useUserInfoQuery(undefined);
   const [updateUser] = useUpdateUserMutation();
@@ -32,7 +31,7 @@ const UpdateProfile = () => {
   if (isError) return <div>Error loading user data</div>;
 
   return (
-    <div className="w-[50%] max-w-md mx-auto p-8 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl mt-12 transition-transform duration-300 hover:scale-[1.02]">
+    <div className="w-[90%] max-w-md mx-auto p-8 bg-gradient-to-br from-white to-gray-50 rounded-2xl shadow-xl mt-12 transition-transform duration-300 hover:scale-[1.02]">
       <h2 className="text-3xl font-bold text-center mb-8 text-[#175C4F]">
         Update Your Profile
       </h2>
